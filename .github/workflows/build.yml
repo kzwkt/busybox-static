@@ -1,29 +1,17 @@
 name: Build st in Debian Stable Container
 
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - '**/*'               # Include all files
-      - '!README.md'          # Exclude README.md
+on: workflow_dispatch
 
 jobs:
   build:
     runs-on: ubuntu-latest  # This is to run the GitHub Actions 
-    container:
-      image: debian:stable  
-   
-
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-
-
     - name:  install dependecies
       run: |
        bash build.sh
-       upload=$(realpath instantWM/instantwm)
+       upload=$(realpath busybox)
        echo "FILE1=${upload}" >> $GITHUB_ENV 
 
     - name: Create release
